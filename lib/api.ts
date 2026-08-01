@@ -1,20 +1,7 @@
 import axios, { AxiosError } from "axios";
 
-const DEFAULT_LOCAL_API_URL = "http://127.0.0.1:8000";
-
 export function getApiBaseUrl(): string {
-  const configured = process.env.NEXT_PUBLIC_API_BASE_URL?.trim();
-  if (configured) {
-    const url = new URL(configured);
-    if (url.protocol !== "https:" && url.hostname !== "localhost" && url.hostname !== "127.0.0.1") {
-      throw new Error("NEXT_PUBLIC_API_BASE_URL must use HTTPS outside local development");
-    }
-    return url.toString().replace(/\/$/, "");
-  }
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("NEXT_PUBLIC_API_BASE_URL is required in production");
-  }
-  return DEFAULT_LOCAL_API_URL;
+  return "/api/backend";
 }
 
 export class SafeApiError extends Error {
@@ -81,6 +68,7 @@ export const getMembers = (org: string) => api.get(`/organizations/${org}/member
 export const inviteMember = (org: string, data: { email: string; role: string }) => api.post(`/organizations/${org}/invites`, data);
 export const updateMember = (org: string, id: string, role: string) => api.patch(`/organizations/${org}/members/${id}`, { role });
 export const removeMember = (org: string, id: string) => api.delete(`/organizations/${org}/members/${id}`);
+export const cancelInvite = (org: string, id: string) => api.delete(`/organizations/${org}/invites/${id}`);
 export const getPlans = () => api.get("/subscriptions/plans");
 export const getSubscription = (org: string) => api.get(`/subscriptions/${org}`);
 export const getAuditLogs = (org: string) => api.get(`/audit-logs/${org}`);
