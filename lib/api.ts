@@ -1,20 +1,7 @@
 import axios, { AxiosError } from "axios";
 
-const DEFAULT_LOCAL_API_URL = "http://127.0.0.1:8000";
-
 export function getApiBaseUrl(): string {
-  const configured = process.env.NEXT_PUBLIC_API_BASE_URL?.trim();
-  if (configured) {
-    const url = new URL(configured);
-    if (url.protocol !== "https:" && url.hostname !== "localhost" && url.hostname !== "127.0.0.1") {
-      throw new Error("NEXT_PUBLIC_API_BASE_URL must use HTTPS outside local development");
-    }
-    return url.toString().replace(/\/$/, "");
-  }
-  if (process.env.NODE_ENV === "production") {
-    throw new Error("NEXT_PUBLIC_API_BASE_URL is required in production");
-  }
-  return DEFAULT_LOCAL_API_URL;
+  return "/api/backend";
 }
 
 export class SafeApiError extends Error {
