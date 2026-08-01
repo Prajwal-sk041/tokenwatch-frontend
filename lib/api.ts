@@ -68,6 +68,7 @@ export const getMembers = (org: string) => api.get(`/organizations/${org}/member
 export const inviteMember = (org: string, data: { email: string; role: string }) => api.post(`/organizations/${org}/invites`, data);
 export const updateMember = (org: string, id: string, role: string) => api.patch(`/organizations/${org}/members/${id}`, { role });
 export const removeMember = (org: string, id: string) => api.delete(`/organizations/${org}/members/${id}`);
+export const cancelInvite = (org: string, id: string) => api.delete(`/organizations/${org}/invites/${id}`);
 export const getPlans = () => api.get("/subscriptions/plans");
 export const getSubscription = (org: string) => api.get(`/subscriptions/${org}`);
 export const getAuditLogs = (org: string) => api.get(`/audit-logs/${org}`);
