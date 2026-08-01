@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";import fs from "node:fs";import test from "node:test";
 const read=(p)=>fs.readFileSync(new URL(`../${p}`,import.meta.url),"utf8");
 test("commercial landing page contains factual journey and metadata",()=>{const s=read("app/page.tsx");for(const text of ["Start free","View documentation","Budget circuit breaker","Security by architecture","Frequently asked questions"])assert.match(s,new RegExp(text));assert.doesNotMatch(s,/testimonial|customers trust|SOC 2 certified/i)});
-test("API client uses secure cookie sessions without localStorage",()=>{const s=read("lib/api.ts");assert.match(s,/withCredentials: true/);assert.doesNotMatch(s,/localStorage/)});
+test("API client uses a same-origin session proxy without localStorage",()=>{const s=read("lib/api.ts"),p=read("app/api/backend/[...path]/route.ts");assert.match(s,/withCredentials: true/);assert.match(s,/\/api\/backend/);assert.match(p,/getSetCookie/);assert.match(p,/cache: "no-store"/);assert.doesNotMatch(s,/localStorage/)});
 test("registration has verification pending and resend states",()=>{const s=read("app/register/page.tsx");assert.match(s,/Verify your email/);assert.match(s,/resendVerification/)});
 test("protected routes use Next 16 proxy",()=>{const s=read("proxy.ts");assert.match(s,/tw_access/);assert.match(s,/\/dashboard\/:path\*/)});
 test("onboarding creates one-time SDK key and verifies backend event",()=>{const s=read("app/onboarding/page.tsx");assert.match(s,/one-time secret/);assert.match(s,/sendTestEvent/);assert.match(s,/Create your first budget/)});
