@@ -9,6 +9,7 @@ const REQUEST_HEADERS = [
   "content-type",
   "cookie",
   "idempotency-key",
+  "origin",
   "user-agent",
   "x-tokenwatch-key",
 ] as const;
@@ -100,4 +101,3 @@ export const POST = forward;
 export const PUT = forward;
 export const PATCH = forward;
 export const DELETE = forward;
-
