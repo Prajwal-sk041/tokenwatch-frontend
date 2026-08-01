@@ -1,0 +1,1 @@
+import{LegalPage,Section}from"@/components/legal-page";export default function Page(){return <LegalPage title="Contact TokenWatch" updated="August 1, 2026"><Section title="Sales and support"><p>Use the support contact associated with your TokenWatch account for product, billing, enterprise, privacy, or security requests.</p></Section></LegalPage>}
