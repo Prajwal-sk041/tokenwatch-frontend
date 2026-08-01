@@ -24,20 +24,22 @@ export class SafeApiError extends Error {
   }
 }
 
-const api = axios.create({ baseURL: getApiBaseUrl(), timeout: 15_000 });
-
-api.interceptors.request.use((config) => {
-  const token = typeof window === "undefined" ? null : localStorage.getItem("token");
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  return config;
-});
+const api = axios.create({ baseURL: getApiBaseUrl(), timeout: 15_000, withCredentials: true });
+let refreshPromise: Promise<void> | null = null;
 
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError) => {
-    if (error.response?.status === 401 && typeof window !== "undefined") {
-      localStorage.removeItem("token");
-      window.location.assign("/login");
+  async (error: AxiosError) => {
+    const original = error.config as (typeof error.config & { _retried?: boolean });
+    if (error.response?.status === 401 && original && !original._retried && !original.url?.includes("/auth/refresh")) {
+      original._retried = true;
+      refreshPromise ??= api.post("/auth/refresh").then(() => undefined).finally(() => { refreshPromise = null; });
+      try {
+        await refreshPromise;
+        return api.request(original);
+      } catch {
+        if (typeof window !== "undefined") window.location.assign("/login");
+      }
     }
     const message = error.response?.status === 401
       ? "Your session has expired. Please sign in again."
@@ -50,6 +52,7 @@ api.interceptors.response.use(
 
 export const register = (email: string, password: string) => api.post("/auth/register", { email, password });
 export const login = (email: string, password: string) => api.post("/auth/login", { email, password });
+export const logout = () => api.post("/auth/logout");
 export const getMe = () => api.get("/auth/me");
 export const getKeys = () => api.get("/keys/list");
 export const addKey = (data: { name: string; provider: string; key_value: string }) => api.post("/keys/add", data);

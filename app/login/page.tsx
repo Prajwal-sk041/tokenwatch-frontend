@@ -16,8 +16,7 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await API.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.access_token);
+      await API.post("/auth/login", { email, password });
       toast.success("Welcome back!");
       router.push("/dashboard");
     } catch (error: unknown) {

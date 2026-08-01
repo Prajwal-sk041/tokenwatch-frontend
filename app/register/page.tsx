@@ -22,7 +22,7 @@ export default function RegisterPage() {
     setLoading(true);
     try {
       await API.post("/auth/register", { email, password });
-      toast.success("Account created! Please sign in.");
+      toast.success("Account created. Check your email to verify it before signing in.");
       router.push("/login");
     } catch (error: unknown) {
       toast.error(error instanceof Error ? error.message : "Registration failed");

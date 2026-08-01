@@ -41,8 +41,6 @@ export default function KeysPage() {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) { router.push("/login"); return; }
     fetchKeys();
   }, []);
 
@@ -50,13 +48,8 @@ export default function KeysPage() {
     try {
       const res = await API.get("/keys/list");
       setKeys(Array.isArray(res.data) ? res.data : []);
-    } catch (err: any) {
-      if (err?.response?.status === 401) {
-        localStorage.removeItem("token");
-        router.push("/login");
-      } else {
-        toast.error("Failed to load API keys");
-      }
+    } catch {
+      toast.error("Failed to load API keys");
     } finally {
       setLoading(false);
     }
@@ -129,7 +122,7 @@ export default function KeysPage() {
             Alerts
           </Link>
           <button
-            onClick={() => { localStorage.removeItem("token"); router.push("/login"); }}
+            onClick={async () => { await API.post("/auth/logout"); router.push("/login"); }}
             className="text-sm px-4 py-1.5 rounded-lg bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-200 transition"
           >
             Logout
