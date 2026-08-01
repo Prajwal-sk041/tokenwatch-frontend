@@ -1,0 +1,2 @@
+export function PageHeader({title,description}:{title:string;description:string}){return <div><h1 className="text-3xl font-semibold">{title}</h1><p className="mt-2 max-w-3xl text-sm text-slate-500">{description}</p></div>}
+export function Card({children,className=""}:{children:React.ReactNode;className?:string}){return <section className={`rounded-xl border border-slate-200 bg-white p-5 ${className}`}>{children}</section>}

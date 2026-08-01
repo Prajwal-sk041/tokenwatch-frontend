@@ -1,40 +1,30 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, BarChart3, Bell, Check, KeyRound, LockKeyhole, ShieldCheck, Zap } from "lucide-react";
 
-const features = [
-  ["Real-time visibility", "See token usage and estimated API costs before budgets drift."],
-  ["Project attribution", "Understand usage by provider, project, environment, and agent."],
-  ["Budget alerts", "Set daily or monthly thresholds and receive early warnings."],
+const providers = ["OpenAI", "Anthropic", "Gemini", "Groq", "OpenRouter", "Azure OpenAI", "AWS Bedrock"];
+const capabilities = [
+  [BarChart3, "Usage intelligence", "Understand spend by provider, model, project, and environment."],
+  [ShieldCheck, "Budget policies", "Evaluate daily and monthly limits before an AI request is sent."],
+  [Bell, "Actionable alerts", "Notify teams by email or webhook as thresholds are approached."],
+  [KeyRound, "Secure SDK keys", "Use scoped, revocable ingestion credentials—not login sessions."],
 ];
 
-export default function HomePage() {
-  return (
-    <main className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
-      <nav className="border-b border-zinc-200 bg-white/80 dark:border-zinc-800 dark:bg-zinc-950/80">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-xl font-bold">TokenWatch</Link>
-          <div className="flex gap-3">
-            <Button asChild variant="ghost"><Link href="/login">Sign in</Link></Button>
-            <Button asChild><Link href="/register">Get started</Link></Button>
-          </div>
-        </div>
-      </nav>
-      <section className="mx-auto max-w-5xl px-6 py-24 text-center">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-zinc-500">AI usage monitoring</p>
-        <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">Keep AI API costs visible.</h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
-          TokenWatch brings OpenAI, Anthropic, and Gemini usage into one dashboard with attribution and budget alerts.
-        </p>
-        <Button asChild size="lg" className="mt-10"><Link href="/register">Start monitoring</Link></Button>
-      </section>
-      <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-24 md:grid-cols-3">
-        {features.map(([title, description]) => (
-          <article key={title} className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
-            <h2 className="text-lg font-semibold">{title}</h2>
-            <p className="mt-2 text-zinc-600 dark:text-zinc-400">{description}</p>
-          </article>
-        ))}
-      </section>
-    </main>
-  );
+export default function Home() {
+  const schema = { "@context": "https://schema.org", "@type": "SoftwareApplication", name: "TokenWatch", applicationCategory: "BusinessApplication", operatingSystem: "Web", offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } };
+  return <main className="min-h-screen bg-slate-950 text-slate-100">
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+    <nav aria-label="Main navigation" className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/90 backdrop-blur"><div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"><Link href="/" className="font-bold tracking-tight">TokenWatch</Link><div className="hidden gap-6 text-sm text-slate-300 md:flex"><Link href="#product">Product</Link><Link href="/docs">Documentation</Link><Link href="/pricing">Pricing</Link></div><div className="flex gap-3"><Link href="/login" className="rounded-lg px-4 py-2 text-sm">Sign in</Link><Link href="/register" className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950">Start free</Link></div></div></nav>
+    <section className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-2 lg:items-center"><div><p className="mb-5 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">AI cost control for modern teams</p><h1 className="text-5xl font-semibold tracking-tight sm:text-6xl">Stop AI spend before it becomes a surprise.</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">Track every AI request, enforce budgets before overspending, and control OpenAI, Anthropic, Gemini and other model costs from one dashboard.</p><div className="mt-8 flex flex-wrap gap-4"><Link href="/register" className="inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950">Start free <ArrowRight size={18}/></Link><Link href="/docs" className="rounded-xl border border-white/15 px-6 py-3 font-semibold">View documentation</Link></div></div>
+      <div id="product" className="rounded-2xl border border-white/10 bg-slate-900 p-5 shadow-2xl"><div className="flex items-center justify-between border-b border-white/10 pb-4"><div><p className="text-sm text-slate-400">Honest sample-data preview</p><h2 className="font-semibold">Monthly usage</h2></div><span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Within budget</span></div><div className="grid grid-cols-3 gap-3 py-5">{[["Requests","18,420"],["Tokens","12.8M"],["Cost","$428.16"]].map(([k,v])=><div key={k} className="rounded-xl bg-slate-800 p-4"><p className="text-xs text-slate-400">{k}</p><p className="mt-2 text-xl font-semibold">{v}</p></div>)}</div><div className="space-y-3">{[["OpenAI",62],["Anthropic",27],["Gemini",11]].map(([p,n])=><div key={String(p)}><div className="flex justify-between text-sm"><span>{p}</span><span>{n}%</span></div><div className="mt-1 h-2 rounded bg-slate-800"><div className="h-2 rounded bg-cyan-400" style={{width:`${n}%`}}/></div></div>)}</div></div>
+    </section>
+    <section className="border-y border-white/10 bg-slate-900/50"><div className="mx-auto max-w-7xl px-6 py-20"><p className="text-sm font-semibold text-rose-300">THE PROBLEM</p><h2 className="mt-3 max-w-3xl text-3xl font-semibold">Provider dashboards explain yesterday. TokenWatch helps your application decide before the next request.</h2><p className="mt-4 max-w-3xl text-slate-300">Fragmented billing, model-level price differences, and delayed alerts turn AI experimentation into financial uncertainty. A policy check creates an explicit allow, warn, block, or log decision at request time.</p></div></section>
+    <section className="mx-auto max-w-7xl px-6 py-20"><h2 className="text-3xl font-semibold">How TokenWatch works</h2><div className="mt-8 grid gap-5 md:grid-cols-3">{[["1","Instrument","Send usage with a scoped TokenWatch SDK key."],["2","Evaluate","Call the policy endpoint before provider requests."],["3","Act","Allow, warn, block, or log based on real budgets."]].map(([n,t,d])=><article key={n} className="rounded-2xl border border-white/10 p-6"><span className="text-cyan-300">{n}</span><h3 className="mt-4 text-xl font-semibold">{t}</h3><p className="mt-2 text-slate-400">{d}</p></article>)}</div></section>
+    <section className="bg-white py-20 text-slate-950"><div className="mx-auto max-w-7xl px-6"><h2 className="text-3xl font-semibold">Built for control, not vanity metrics</h2><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{capabilities.map(([Icon,title,copy])=><article key={String(title)} className="rounded-2xl border border-slate-200 p-6"><Icon className="text-cyan-600"/><h3 className="mt-4 font-semibold">{String(title)}</h3><p className="mt-2 text-sm text-slate-600">{String(copy)}</p></article>)}</div></div></section>
+    <section className="mx-auto max-w-7xl px-6 py-20"><h2 className="text-3xl font-semibold">One model-usage vocabulary</h2><div className="mt-7 flex flex-wrap gap-3">{providers.map(p=><span key={p} className="rounded-full border border-white/15 px-4 py-2 text-slate-300">{p}</span>)}</div><div className="mt-12 grid gap-6 lg:grid-cols-2"><div className="rounded-2xl bg-slate-900 p-6"><p className="text-sm text-slate-400">REST integration</p><pre className="mt-4 overflow-x-auto text-sm text-cyan-200"><code>{`curl -X POST https://tokenwatch-backend.vercel.app/v1/ingest/usage \\\n  -H "X-TokenWatch-Key: tw_live_YOUR_KEY" \\\n  -H "Content-Type: application/json" \\\n  -d '{"provider":"openai","model":"gpt-4o-mini",\n       "prompt_tokens":120,"completion_tokens":45,\n       "idempotency_key":"request-123"}'`}</code></pre></div><div className="rounded-2xl border border-amber-300/20 bg-amber-300/5 p-6"><Zap className="text-amber-300"/><h3 className="mt-4 text-xl font-semibold">Budget circuit breaker</h3><p className="mt-3 text-slate-300">Call <code>/policy/check</code> before the provider request. TokenWatch cannot block traffic it does not control; your integration applies the returned decision.</p></div></div></section>
+    <section className="border-y border-white/10 bg-slate-900/50"><div className="mx-auto grid max-w-7xl gap-8 px-6 py-20 lg:grid-cols-2"><div><LockKeyhole className="text-cyan-300"/><h2 className="mt-4 text-3xl font-semibold">Security by architecture</h2><p className="mt-4 text-slate-300">Organization isolation, hashed ingestion keys, encrypted provider credentials, rotating sessions, audit logs, and server-calculated costs are built into the foundation.</p></div><div className="space-y-3">{["SDK keys are separate from login sessions","Provider credentials are optional for ingestion","Every resource is organization-scoped","Secrets are revealed only when created"].map(x=><p key={x} className="flex gap-3"><Check className="text-emerald-300" size={20}/>{x}</p>)}</div></div></section>
+    <section id="pricing" className="mx-auto max-w-7xl px-6 py-20"><h2 className="text-3xl font-semibold">Simple plans, billing in Phase 4</h2><div className="mt-8 grid gap-5 md:grid-cols-2"><div className="rounded-2xl border border-cyan-400/30 p-7"><h3 className="text-xl font-semibold">Free</h3><p className="mt-3 text-4xl font-semibold">$0</p><p className="mt-3 text-slate-400">10,000 usage events each month. Start integrating today.</p></div><div className="rounded-2xl border border-white/10 p-7"><h3 className="text-xl font-semibold">Pro</h3><p className="mt-3 text-4xl font-semibold">$49</p><p className="mt-3 text-slate-400">Upgrade checkout becomes available in Phase 4. No payment is collected today.</p></div></div><Link href="/pricing" className="mt-6 inline-block text-cyan-300">See pricing details →</Link></section>
+    <section className="bg-white py-20 text-slate-950"><div className="mx-auto max-w-4xl px-6"><h2 className="text-3xl font-semibold">Frequently asked questions</h2>{[["Does TokenWatch proxy my AI traffic?","No. Phase 3 records usage and returns policy decisions. Your application calls the provider directly."],["Are provider keys required?","No. Usage ingestion needs only a TokenWatch SDK key. Provider credentials are optional and stored separately."],["Can TokenWatch guarantee a block?","Only when your application calls the policy endpoint before its provider request and honors the response."]].map(([q,a])=><details key={q} className="border-b border-slate-200 py-5"><summary className="cursor-pointer font-semibold">{q}</summary><p className="mt-3 text-slate-600">{a}</p></details>)}</div></section>
+    <section className="mx-auto max-w-4xl px-6 py-24 text-center"><h2 className="text-4xl font-semibold">Make AI spend an engineering decision.</h2><p className="mt-4 text-slate-300">Create a workspace, issue a scoped SDK key, and verify your first real usage event.</p><Link href="/register" className="mt-8 inline-flex rounded-xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950">Start free</Link></section>
+    <footer className="border-t border-white/10"><div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 text-sm text-slate-400 md:flex-row md:justify-between"><p>© {new Date().getFullYear()} TokenWatch</p><div className="flex gap-5"><Link href="/docs">Documentation</Link><Link href="/pricing">Pricing</Link><Link href="/login">Sign in</Link></div></div></footer>
+  </main>;
 }

@@ -1,0 +1,17 @@
+import Link from "next/link";
+const sections=[
+["Quick start","Register, verify your email, sign in, and complete onboarding. Your default organization is created automatically."],
+["Authentication","Dashboard requests use rotating secure HttpOnly cookies. Never use a login JWT in an SDK."],
+["Creating SDK keys","Open SDK Keys, choose scopes and expiration, then copy the one-time secret. Store it in a server-side environment variable."],
+["Python integration",`requests.post(API + "/v1/ingest/usage", headers={"X-TokenWatch-Key": os.environ["TOKENWATCH_API_KEY"]}, json=event)`],
+["Node.js integration",`await fetch(API + "/v1/ingest/usage", { method: "POST", headers: { "Content-Type": "application/json", "X-TokenWatch-Key": process.env.TOKENWATCH_API_KEY }, body: JSON.stringify(event) })`],
+["REST integration",`curl -X POST "$TOKENWATCH_API/v1/ingest/usage" -H "X-TokenWatch-Key: $TOKENWATCH_API_KEY" -H "Content-Type: application/json" -d @event.json`],
+["Usage ingestion",`Required fields include provider, model, prompt_tokens, completion_tokens, idempotency_key, and a timestamp inside the replay window. Cost is calculated by TokenWatch.`],
+["Policy check",`GET /policy/check?provider=openai&model=gpt-4o-mini with X-TokenWatch-Key returns allowed, blocked, reason, remaining_budget, and current_usage.`],
+["Budgets","Create organization, user, provider, or model policies. Your application must call policy/check before the provider request to enforce a block."],
+["Alerts","Email and HTTPS webhooks are supported. Slack and Teams are not active yet."],
+["Organizations","Owners and admins invite members. Owners manage roles; viewers receive read-only controls."],
+["SDK-key rotation","Rotate a key to revoke the old secret immediately and receive a new one-time secret."],
+["Troubleshooting","A 401 means the session or SDK key is unavailable. A 403 means the authenticated principal lacks the required role or scope. A 409 usually indicates duplicate idempotency."],
+];
+export default function Docs(){return <main className="min-h-screen bg-slate-50"><header className="border-b bg-white"><div className="mx-auto flex max-w-6xl justify-between px-6 py-4"><Link href="/" className="font-bold">TokenWatch Docs</Link><div className="flex gap-4 text-sm"><Link href="/dashboard">Dashboard</Link><a href="https://tokenwatch-backend.vercel.app/docs">API reference</a></div></div></header><div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[220px_1fr]"><aside className="hidden lg:block"><nav aria-label="Documentation" className="sticky top-6 space-y-2 text-sm">{sections.map(([t])=><a key={t} href={`#${t.toLowerCase().replaceAll(" ","-")}`} className="block text-slate-600 hover:text-slate-950">{t}</a>)}</nav></aside><article><h1 className="text-4xl font-semibold">Integrate TokenWatch</h1><p className="mt-3 text-slate-600">Production API: <code>https://tokenwatch-backend.vercel.app</code></p><div className="mt-10 space-y-12">{sections.map(([title,body])=><section id={title.toLowerCase().replaceAll(" ","-")} key={title}><h2 className="text-2xl font-semibold">{title}</h2>{body.includes("/")||body.includes("requests.")||body.includes("fetch(")||body.includes("curl")?<pre className="mt-4 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-cyan-200"><code>{body}</code></pre>:<p className="mt-3 leading-7 text-slate-600">{body}</p>}</section>)}</div></article></div></main>}

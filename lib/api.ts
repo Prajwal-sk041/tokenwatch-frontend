@@ -50,7 +50,7 @@ api.interceptors.response.use(
   },
 );
 
-export const register = (email: string, password: string) => api.post("/auth/register", { email, password });
+export const register = (email: string, password: string, full_name = "") => api.post("/auth/register", { email, password, full_name });
 export const login = (email: string, password: string) => api.post("/auth/login", { email, password });
 export const logout = () => api.post("/auth/logout");
 export const getMe = () => api.get("/auth/me");
@@ -62,4 +62,27 @@ export const createAlert = (data: { alert_type: string; threshold: number }) => 
 export const deleteAlert = (id: string) => api.delete(`/alerts/delete/${id}`);
 export const getUsageSummary = () => api.get("/usage/stats");
 export const getUsageDaily = () => api.get("/usage/history");
+export const resendVerification = (email: string) => api.post("/auth/verify-email/resend", { email });
+export const getOrganizations = () => api.get("/organizations");
+export const getOnboarding = (org: string) => api.get(`/onboarding/${org}`);
+export const updateOnboarding = (org: string, data: Record<string, unknown>) => api.put(`/onboarding/${org}`, data);
+export const sendTestEvent = (org: string, data: { sdk_key: string; provider: string; model: string }) => api.post(`/onboarding/${org}/test-event`, data);
+export const createSdkKey = (org: string, data: Record<string, unknown>) => api.post(`/sdk-keys/${org}`, data);
+export const listSdkKeys = (org: string) => api.get(`/sdk-keys/${org}`);
+export const rotateSdkKey = (org: string, id: string) => api.post(`/sdk-keys/${org}/${id}/rotate`);
+export const revokeSdkKey = (org: string, id: string) => api.delete(`/sdk-keys/${org}/${id}`);
+export const getUsageAggregate = (params?: Record<string, string>) => api.get("/usage/aggregate", { params });
+export const getUsageEvents = (params?: Record<string, string | number>) => api.get("/usage/events", { params });
+export const getBudgets = (org: string) => api.get(`/budgets/${org}`);
+export const createBudget = (org: string, data: Record<string, unknown>) => api.post(`/budgets/${org}`, data);
+export const updateBudget = (org: string, id: string, data: Record<string, unknown>) => api.patch(`/budgets/${org}/${id}`, data);
+export const deleteBudget = (org: string, id: string) => api.delete(`/budgets/${org}/${id}`);
+export const getMembers = (org: string) => api.get(`/organizations/${org}/members`);
+export const inviteMember = (org: string, data: { email: string; role: string }) => api.post(`/organizations/${org}/invites`, data);
+export const updateMember = (org: string, id: string, role: string) => api.patch(`/organizations/${org}/members/${id}`, { role });
+export const removeMember = (org: string, id: string) => api.delete(`/organizations/${org}/members/${id}`);
+export const getPlans = () => api.get("/subscriptions/plans");
+export const getSubscription = (org: string) => api.get(`/subscriptions/${org}`);
+export const getAuditLogs = (org: string) => api.get(`/audit-logs/${org}`);
+export const getAlertHistory = () => api.get("/alerts/history");
 export default api;
