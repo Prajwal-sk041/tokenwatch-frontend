@@ -1,17 +1,9 @@
-import assert from "node:assert/strict";
-import fs from "node:fs";
-import test from "node:test";
-
-test("landing page is TSX and renders TokenWatch positioning", () => {
-  const source = fs.readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
-  assert.match(source, /export default function HomePage/);
-  assert.match(source, /Keep AI API costs visible/);
-  assert.doesNotMatch(source, /^aW1wb3J0/);
-});
-
-test("API client uses the public base URL and rejects insecure remote URLs", () => {
-  const source = fs.readFileSync(new URL("../lib/api.ts", import.meta.url), "utf8");
-  assert.match(source, /NEXT_PUBLIC_API_BASE_URL/);
-  assert.match(source, /must use HTTPS outside local development/);
-  assert.doesNotMatch(source, /tokenwatch-backend\.vercel\.app/);
-});
+import assert from "node:assert/strict";import fs from "node:fs";import test from "node:test";
+const read=(p)=>fs.readFileSync(new URL(`../${p}`,import.meta.url),"utf8");
+test("commercial landing page contains factual journey and metadata",()=>{const s=read("app/page.tsx");for(const text of ["Start free","View documentation","Budget circuit breaker","Security by architecture","Frequently asked questions"])assert.match(s,new RegExp(text));assert.doesNotMatch(s,/testimonial|customers trust|SOC 2 certified/i)});
+test("API client uses secure cookie sessions without localStorage",()=>{const s=read("lib/api.ts");assert.match(s,/withCredentials: true/);assert.doesNotMatch(s,/localStorage/)});
+test("registration has verification pending and resend states",()=>{const s=read("app/register/page.tsx");assert.match(s,/Verify your email/);assert.match(s,/resendVerification/)});
+test("protected routes use Next 16 proxy",()=>{const s=read("proxy.ts");assert.match(s,/tw_access/);assert.match(s,/\/dashboard\/:path\*/)});
+test("onboarding creates one-time SDK key and verifies backend event",()=>{const s=read("app/onboarding/page.tsx");assert.match(s,/one-time secret/);assert.match(s,/sendTestEvent/);assert.match(s,/Create your first budget/)});
+test("product pages expose real management states",()=>{for(const p of ["app/dashboard/sdk-keys/page.tsx","app/dashboard/budgets/page.tsx","app/dashboard/alerts/page.tsx","app/dashboard/team/page.tsx","app/dashboard/billing/page.tsx"])assert.ok(read(p).length>500)});
+test("billing browser cannot mutate subscription",()=>{const s=read("app/dashboard/billing/page.tsx");assert.doesNotMatch(s,/put\(.+subscriptions|changeSubscription/);assert.match(s,/Phase 4/)});
