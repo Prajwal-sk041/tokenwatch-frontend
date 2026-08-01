@@ -618,8 +618,6 @@ export default function DashboardPage() {
   const [serverToday,     setServerToday]     = useState<string>("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) { router.push("/login"); return; }
     fetchData();
   }, []);
 
@@ -646,9 +644,8 @@ export default function DashboardPage() {
       setAllChartData(clean);
       setProviders(rawProv);
       setActiveProviders(rawProv);
-    } catch (err: any) {
-      if (err?.response?.status === 401) { localStorage.removeItem("token"); router.push("/login"); }
-      else toast.error("Failed to load dashboard data");
+    } catch {
+      toast.error("Failed to load dashboard data");
     } finally {
       setLoading(false);
     }
@@ -717,7 +714,7 @@ export default function DashboardPage() {
           <a href="/dashboard/keys"   style={{ fontSize: 14, color: "#475569", textDecoration: "none" }}>API Keys</a>
           <a href="/dashboard/alerts" style={{ fontSize: 14, color: "#475569", textDecoration: "none" }}>Alerts</a>
           <button
-            onClick={() => { localStorage.removeItem("token"); toast.success("Logged out"); router.push("/login"); }}
+            onClick={async () => { await API.post("/auth/logout"); toast.success("Logged out"); router.push("/login"); }}
             style={{ fontSize: 14, padding: "6px 16px", borderRadius: 8, border: "none", background: "#1e293b", color: "#fff", cursor: "pointer" }}>
             Logout
           </button>
