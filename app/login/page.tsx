@@ -20,8 +20,8 @@ export default function LoginPage() {
       localStorage.setItem("token", res.data.access_token);
       toast.success("Welcome back!");
       router.push("/dashboard");
-    } catch (err: any) {
-      toast.error(err?.response?.data?.detail || "Login failed");
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : "Login failed");
     } finally {
       setLoading(false);
     }

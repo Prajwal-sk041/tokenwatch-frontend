@@ -281,7 +281,7 @@ export default function AlertsPage() {
               <div className="p-16 text-center">
                 <p className="text-4xl mb-3">🔕</p>
                 <p className="text-zinc-500 font-semibold">No alert rules yet</p>
-                <p className="text-zinc-400 text-sm mt-1">Click "+ New Rule" to get started</p>
+                <p className="text-zinc-400 text-sm mt-1">Click &quot;+ New Rule&quot; to get started</p>
               </div>
             ) : (
               <table className="w-full text-sm">
