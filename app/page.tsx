@@ -1,86 +1,40 @@
-aW1wb3J0IHsgQnV0dG9uIH0gZnJvbSAiQC9jb21wb25lbnRzL3VpL2J1dHRv
-biI7CmltcG9ydCBMaW5rIGZyb20gIm5leHQvbGluayI7CgpleHBvcnQgZGVm
-YXVsdCBmdW5jdGlvbiBIb21lUGFnZSgpIHsKICByZXR1cm4gKAogICAgPGRp
-diBjbGFzc05hbWU9Im1pbi1oLXNjcmVlbiBiZy16aW5jLTUwIGRhcms6Ymct
-emluYy05NTAgdGV4dC16aW5jLTkwMCBkYXJrOnRleHQtemluYy0xMDAiPgog
-ICAgICB7LyogTmF2YmFyICovfQogICAgICA8bmF2IGNsYXNzTmFtZT0iYm9y
-ZGVyLWIgYmctd2hpdGUvNTAgYmFja2Ryb3AtYmx1ci1tZCBzdGlja3kgdG9w
-LTAgei01MCBkYXJrOmJnLXppbmMtOTAwLzUwIGRhcms6Ym9yZGVyLXppbmMt
-ODAwIj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctN3hsIG14LWF1
-dG8gcHgtNCBzbTpweC02IGxnOnB4LTggcHktNCI+CiAgICAgICAgICA8ZGl2
-IGNsYXNzTmFtZT0iZmxleCBqdXN0aWZ5LWJldHdlZW4gaXRlbXMtY2VudGVy
-Ij4KICAgICAgICAgICAgPExpbmsghyBocmVmPSIvIiBjbGFzc05hbWU9ImZs
-ZXggaXRlbXMtY2VudGVyIHNwYWNlLXgtMiI+CiAgICAgICAgICAgICAgPHNw
-YW4gY2xhc3NOYW1lPSJ0ZXh0LXhsIGZvbnQtYm9sZCB0cmFja2luZy10aWdo
-dCI+8J+UkCBUb2tlbldhdGNoPC9zcGFuPgogICAgICAgICAgICA8L0xpbms+
-CiAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPSJmbGV4IGl0ZW1zLWNlbnRl
-ciBzcGFjZS14LTQiPgogICAgICAgICAgICAgIDxMaW5rIGhyZWY9Ii9sb2dp
-biI+CiAgICAgICAgICAgICAgICA8QnV0dG9uIHZhcmlhbnQ9Imdob3N0Ij5M
-b2dpbjwvQnV0dG9uPgogICAgICAgICAgICAgIDwvTGluaz4KICAgICAgICAg
-ICAgICA8TGluayBocmVmPSIvcmVnaXN0ZXIiPgogICAgICAgICAgICAgICAg
-PEJ1dHRvbj5HZXQgU3RhcnRlZDwvQnV0dG9uPgogICAgICAgICAgICAgIDwv
-TGluaz4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAg
-ICAgICA8L2Rpdj4KICAgICAgPC9uYXY+CgogICAgICB7LyogSGVybyBTZWN0
-aW9uICovfQogICAgICA8c2VjdGlvbiBjbGFzc05hbWU9InB5LTIwIG9yIHB5
-LTMyIG14LWF1dG8gbWF4LXctN3hsIHB4LTQgc206cHgtNiBsZzpweC04IHRl
-eHQtY2VudGVyIj4KICAgICAgICA8ZGl2IGNsYXNzTmFtZT0ibWF4LXctM3hs
-IG14LWF1dG8gc3BhY2UteS02Ij4KICAgICAgICAgIDxoMSBjbGFzc05hbWU9
-InRleHQtNHhsIHNtOnRleHQtNnhsIGZvbnQtYmV4dHJhYm9sZCB0cmFja2lu
-Zy10aWdodCB0ZXh0LXppbmMtOTAwIGRhcms6dGV4dC13aGl0ZSI+CiAgICAg
-ICAgICAgIFN0b3AgT3ZlcnNwZW5kaW5nIG9uIDxzcGFuIGNsYXNzTmFtZT0i
-dGV4dC16aW5jLTUwMCI+QUkgQVBJczwvc3Bhbj4KICAgICAgICAgIDwvaDE+
-CiAgICAgICAgICA8cCBjbGFzc05hbWU9InRleHQteGwgYmctZ3JhZGllbnQt
-dG8tciBmcm9tLXppbmMtNTAwIHRvLXppbmMtNjAwIGJnLWNsaXAtdGV4dCB0
-ZXh0LXRyYW5zcGFyZW50IG1heC13LTJ4bCBteC1hdXRvIj4KICAgICAgICAg
-ICAgUmVhbC10aW1lIHRva2VuIHRyYWNraW5nLCBjb3N0IGF0dHJpYnV0aW9u
-LCBhbmQgYnVkZ2V0IGFsZXJ0cyBmb3IgT3BlbkFJLCBBbnRocm9waWMsIGFu
-ZCBHZW1pbmkuCiAgICAgICAgICA8L3A+CiAgICAgICAgICA8ZGl2IGNsYXNz
-TmFtZT0iZmxleCBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXIgc3BhY2Ut
-eC00IHB0LTQiPgogICAgICAgICAgICA8TGluayBocmVmPSIvcmVnaXN0ZXIi
-PgogICAgICAgICAgICAgIDxCdXR0b24gc2l6ZT0ibGciIGNsYXNzTmFtZT0i
-cHgtOCByb3VuZGVkLWZ1bGwiPkdldCBTdGFydGVkIGZvciBGcmVlPC9CdXR0
-b24+CiAgICAgICAgICAgIDwvTGluaz4KICAgICAgICAgIDwvZGl2PgogICAg
-ICAgIDwvZGl2PgoKICAgICAgICB7LyogTW9ja3VwICovfQogICAgICAgIDxk
-aXYgY2xhc3NOYW1lPSJtdC0xNiByZWxhdGl2ZSByb3VuZGVkLXhsIGJvcmRl
-ciBiZy16aW5jLTIwMC81MCBwLTIgZGFyazpiZy16aW5jLTkwMC81MCBkYXJr
-OmJvcmRlci16aW5jLTgwMCI+CiAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT0i
-YXNwZWN0LXZpZGVvIHJvdW5kZWQtbGcgb3ZlcmZsb3ctaGlkZGVuIGJvcmRl
-ciBiZy13aGl0ZSBkYXJrOmJnLXppbmMtOTAwIj4KICAgICAgICAgICAgPCEt
-LSBQbGFjZWhvbGRlciBmb3IgZGFzaGJvYXJkIGltYWdlIC0tPgogICAgICAg
-ICAgICA8ZGl2IGNsYXNzTmFtZT0iZmxleCBpdGVtcy1jZW50ZXIganVzdGlm
-eS1jZW50ZXIgaC1mdWxsIHRleHQtemluYy00MDAiPgogICAgICAgICAgICAg
-IDxwPkRhc2hib2FyZCBQcmV2aWV3PC9wPgogICAgICAgICAgICA8L2Rpdj4K
-ICAgICAgICAgIDwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICA8L3NlY3Rp
-b24+CgogICAgICB7LyogRmVhdHVyZXMgKi99CiAgICAgIDxzZWN0aW9uIGNs
-YXNzTmFtZT0icHktMjAgYmctemluYy0xMDAvNTAgZGFyazpiZy16aW5jLTkw
-MC81MCI+CiAgICAgICAgPGRpdiBjbGFzc05hbWU9Im1heC13LTd4bCBteC1h
-dXRvIHB4LTQgc206cHgtNiBsZzpweC04Ij4KICAgICAgICAgIDxkaXYgY2xh
-c3NOYW1lPSJncmlkIHNtOmdyaWQtY29scy0zIGdhcC0xMiI+CiAgICAgICAg
-ICAgIDxkaXYgY2xhc3NOYW1lPSJzcGFjZS15LTQiPgogICAgICAgICAgICAg
-IDxkaXYgY2xhc3NOYW1lPSJoLTEyIHctMTIgcm91bmRlZC1sZyBiZy16aW5j
-LTkwMCBkYXJrOmJnLXpibmMtMTAwIGZsZXggaXRlbXMtY2VudGVyIGp1c3Rp
-ZnktY2VudGVyIHRleHQtd2hpdGUgZGFyazp0ZXh0LXppbmMtOTAwIj7wn5qA
-PC9kaXY+CiAgICAgICAgICAgICAgPGgzIGNsYXNzTmFtZT0idGV4dC14bCBm
-b250LWJvbGQiPlJlYWwtdGltZSBQcmV2ZW50aW9uPC9oMz4KICAgICAgICAg
-ICAgICA8cCBjbGFzc05hbWU9InRleHQtemluYy01MDAiPkdldCBpbnN0YW50
-IGFsZXJ0cyBiZWZvcmUgeW91IGV4Y2VlZCB5b3VyIGJ1ZGdldCwgbm90IGRh
-eXMgYWZ0ZXIuPC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAg
-PGRpdiBjbGFzc05hbWU9InNwYWNlLXktNCI+CiAgICAgICAgICAgICAgPGRp
-diBjbGFzc05hbWU9ImgtMTIgcHctMTIgcm91bmRlZC1sZyBiZy16aW5jLTkw
-MCBkYXJrOmJnLXpibmMtMTAwIGZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnkt
-Y2VudGVyIHRleHQtd2hpdGUgZGFyazp0ZXh0LXppbmMtOTAwIj7wn5SMPC9k
-aXY+CiAgICAgICAgICAgICAgPGgzIGNsYXNzTmFtZT0idGV4dC14bCBmb250
-LWJvbGQiPlVzZXIgQXR0cmlidXRpb248L2gzPgogICAgICAgICAgICAgIDxw
-IGNsYXNzTmFtZT0idGV4dC16aW5jLTUwMCI+VHJhY2sgY29zdHMgcGVyIHVz
-ZXIsIHByb2plY3QsIG9yIGFnZW50IHRvIHByb3RlY3QgeW91ciBtYXJnaW5z
-LjwvcD4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxkaXYgY2xh
-c3NOYW1lPSJzcGFjZS15LTQiPgogICAgICAgICAgICAgIDxkaXYgY2xhc3NO
-YW1lPSJoLTEyIHctMTIgcm91bmRlZC1sZyBiZy16aW5jLTkwMCBkYXJrOmJn
-LXpibmMtMTAwIGZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktY2VudGVyIHRl
-eHQtd2hpdGUgZGFyazp0ZXh0LXppbmMtOTAwIj7wn5KSPC9kaXY+CiAgICAg
-ICAgICAgICAgPGgzIGNsYXNzTmFtZT0idGV4dC14bCBmb250LWJvbGQiPk11
-bHRpLVByb3ZpZGVyPC9oMz4KICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9
-InRleHQtemluYy01MDAiPk1vbml0b3IgT3BlbkFJLCBBbnRocm9waWMsIGFu
-ZCBHZW1pbmkgaW4gb25lIHVuaWZpZWQgZGFzaGJvYXJkLjwvcD4KICAgICAg
-ICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4K
-ICAgICAgPC9zZWN0aW9uPgogICAgPC9kaXY+CiAgKTsKfQo=
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
+const features = [
+  ["Real-time visibility", "See token usage and estimated API costs before budgets drift."],
+  ["Project attribution", "Understand usage by provider, project, environment, and agent."],
+  ["Budget alerts", "Set daily or monthly thresholds and receive early warnings."],
+];
+
+export default function HomePage() {
+  return (
+    <main className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <nav className="border-b border-zinc-200 bg-white/80 dark:border-zinc-800 dark:bg-zinc-950/80">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <Link href="/" className="text-xl font-bold">TokenWatch</Link>
+          <div className="flex gap-3">
+            <Button asChild variant="ghost"><Link href="/login">Sign in</Link></Button>
+            <Button asChild><Link href="/register">Get started</Link></Button>
+          </div>
+        </div>
+      </nav>
+      <section className="mx-auto max-w-5xl px-6 py-24 text-center">
+        <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-zinc-500">AI usage monitoring</p>
+        <h1 className="text-5xl font-bold tracking-tight sm:text-7xl">Keep AI API costs visible.</h1>
+        <p className="mx-auto mt-6 max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
+          TokenWatch brings OpenAI, Anthropic, and Gemini usage into one dashboard with attribution and budget alerts.
+        </p>
+        <Button asChild size="lg" className="mt-10"><Link href="/register">Start monitoring</Link></Button>
+      </section>
+      <section className="mx-auto grid max-w-6xl gap-6 px-6 pb-24 md:grid-cols-3">
+        {features.map(([title, description]) => (
+          <article key={title} className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <h2 className="text-lg font-semibold">{title}</h2>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">{description}</p>
+          </article>
+        ))}
+      </section>
+    </main>
+  );
+}
