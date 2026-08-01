@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
-import { Activity, Bell, BookOpen, Building2, CreditCard, Gauge, KeyRound, LogOut, Menu, ScrollText, Shield, Users, Wallet, X } from "lucide-react";
+import { Activity, Bell, BookOpen, Building2, CreditCard, Gauge, KeyRound, LifeBuoy, LogOut, Menu, ScrollText, Shield, Users, Wallet, X } from "lucide-react";
 import { getMe, getOrganizations, logout } from "@/lib/api";
 
 type Org = { id: string; name: string; role: string; status: string };
@@ -11,7 +11,7 @@ type Workspace = { organization: Org | null; organizations: Org[]; role: string;
 const WorkspaceContext = createContext<Workspace>({ organization: null, organizations: [], role: "viewer", loading: true });
 export const useWorkspace = () => useContext(WorkspaceContext);
 
-const nav = [[Gauge,"Overview","/dashboard"],[Activity,"Usage","/dashboard/usage"],[Wallet,"Budgets","/dashboard/budgets"],[Bell,"Alerts","/dashboard/alerts"],[Shield,"Provider Keys","/dashboard/provider-keys"],[KeyRound,"SDK Keys","/dashboard/sdk-keys"],[Users,"Team","/dashboard/team"],[Building2,"Organization Settings","/dashboard/organization"],[CreditCard,"Billing","/dashboard/billing"],[ScrollText,"Audit Logs","/dashboard/audit"],[BookOpen,"Documentation","/docs"]] as const;
+const nav = [[Gauge,"Overview","/dashboard"],[Activity,"Usage","/dashboard/usage"],[Wallet,"Budgets","/dashboard/budgets"],[Bell,"Alerts","/dashboard/alerts"],[Shield,"Provider Keys","/dashboard/provider-keys"],[KeyRound,"SDK Keys","/dashboard/sdk-keys"],[Users,"Team","/dashboard/team"],[Building2,"Organization Settings","/dashboard/organization"],[CreditCard,"Billing","/dashboard/billing"],[ScrollText,"Audit Logs","/dashboard/audit"],[BookOpen,"Documentation","/docs"],[LifeBuoy,"Support & feedback","/support"]] as const;
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [organizations,setOrganizations]=useState<Org[]>([]); const [active,setActive]=useState(0); const [mobile,setMobile]=useState(false); const [profile,setProfile]=useState<{full_name?:string,email?:string}>({});
