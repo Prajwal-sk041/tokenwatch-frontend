@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"SoftwareApplication",name:"TokenWatch",applicationCategory:"BusinessApplication",operatingSystem:"Web",offers:{"@type":"AggregateOffer",lowPrice:"0",priceCurrency:"USD"}}).replace(/</g,"\\u003c")}} />
         {children}
         <Toaster richColors position="top-right" />
       </body>
