@@ -21,3 +21,5 @@ npm run build
 ```
 
 Production builds require an HTTPS `NEXT_PUBLIC_API_BASE_URL`. Localhost HTTP is accepted for development.
+
+Registration, password reset, and account settings use the same password policy: at least 5 characters with one uppercase letter, one number, and one special character. Email verification remains required; when the backend cannot confirm delivery, the UI must show a delivery warning rather than claiming that mail was sent.
