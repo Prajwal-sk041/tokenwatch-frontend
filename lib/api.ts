@@ -41,6 +41,9 @@ export const register = (email: string, password: string, full_name = "") => api
 export const login = (email: string, password: string) => api.post("/auth/login", { email, password });
 export const logout = () => api.post("/auth/logout");
 export const getMe = () => api.get("/auth/me");
+export const updateMe = (full_name: string) => api.patch("/auth/me", { full_name });
+export const changePassword = (current_password: string, new_password: string) => api.post("/auth/change-password", { current_password, new_password });
+export const requestPasswordReset = (email: string) => api.post("/auth/password-reset/request", { email });
 export const getKeys = () => api.get("/keys/list");
 export const addKey = (data: { name: string; provider: string; key_value: string }) => api.post("/keys/add", data);
 export const deleteKey = (id: string) => api.delete(`/keys/delete/${id}`);
