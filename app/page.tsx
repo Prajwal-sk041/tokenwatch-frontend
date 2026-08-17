@@ -98,9 +98,9 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-            Track every AI request, enforce budgets before overspending, and
-            control OpenAI, Anthropic, Gemini and other model costs from one
-            dashboard.
+            One financial control plane for OpenAI, Anthropic, Gemini, Bedrock,
+            Azure and more. See total spend, assign ownership, forecast risk,
+            and enforce budgets before overspending.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
@@ -179,6 +179,88 @@ export default function Home() {
             check creates an explicit allow, warn, block, or log decision at
             request time.
           </p>
+        </div>
+      </section>
+      <section className="mx-auto max-w-7xl px-6 py-20">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[.18em] text-cyan-300">
+            Why not use provider dashboards alone?
+          </p>
+          <h2 className="mt-3 text-4xl font-semibold tracking-tight">
+            Seven providers should not mean seven financial blind spots.
+          </h2>
+          <p className="mt-4 text-lg text-slate-300">
+            Provider consoles remain the source for their invoices. TokenWatch
+            adds the missing control layer across them: one normalized view,
+            accountable ownership, forward-looking risk, and decisions your
+            application can enforce before cost is created.
+          </p>
+        </div>
+        <div className="mt-10 overflow-hidden rounded-3xl border border-white/10 bg-white/[.03]">
+          <div className="grid grid-cols-[1.2fr_1fr_1fr] border-b border-white/10 bg-white/[.04] px-5 py-4 text-sm font-semibold sm:px-7">
+            <span>What your team needs</span>
+            <span className="text-slate-400">Provider console</span>
+            <span className="text-cyan-300">TokenWatch</span>
+          </div>
+          {[
+            [
+              "One view across every provider",
+              "One provider at a time",
+              "Unified",
+            ],
+            [
+              "Cost by project, environment and user",
+              "Limited or provider-specific",
+              "Normalized ownership",
+            ],
+            [
+              "Monthly spend forecast and anomaly risk",
+              "Mostly retrospective totals",
+              "Forward-looking",
+            ],
+            [
+              "Budget decision before the next request",
+              "Alerts after usage",
+              "Allow, warn or block",
+            ],
+            ["Evidence of spend prevented", "Invoice amount", "Savings ledger"],
+          ].map(([need, provider, tokenwatch]) => (
+            <div
+              key={need}
+              className="grid grid-cols-[1.2fr_1fr_1fr] gap-3 border-b border-white/10 px-5 py-5 text-sm last:border-0 sm:px-7"
+            >
+              <span className="font-medium text-white">{need}</span>
+              <span className="text-slate-500">{provider}</span>
+              <span className="flex items-start gap-2 font-medium text-emerald-300">
+                <Check size={16} className="mt-0.5 shrink-0" />
+                {tokenwatch}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {[
+            [
+              "For founders",
+              "Know the combined bill and whether AI features remain profitable.",
+            ],
+            [
+              "For engineering",
+              "Trace cost to the service that created it and apply policy in code.",
+            ],
+            [
+              "For finance",
+              "Set approved limits and see risk without learning every provider console.",
+            ],
+          ].map(([title, copy]) => (
+            <article
+              key={title}
+              className="rounded-2xl border border-white/10 p-5"
+            >
+              <h3 className="font-semibold text-cyan-200">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p>
+            </article>
+          ))}
         </div>
       </section>
       <section className="mx-auto max-w-7xl px-6 py-20">
