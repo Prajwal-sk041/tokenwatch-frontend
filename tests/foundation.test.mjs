@@ -211,6 +211,7 @@ test("acceptance cleanup prevents ambiguous provider and member identity", () =>
   assert.match(providerKeys, /Credential stored as/);
   assert.match(team, /m\.display_name \|\| m\.email/);
   assert.doesNotMatch(team, /m\.invited_email \|\| m\.user_id/);
-  assert.match(layout, /suppressHydrationWarning/);
+  assert.match(layout, /<html lang="en" suppressHydrationWarning>/);
+  assert.match(layout, /<body suppressHydrationWarning>/);
   assert.match(audit, /Loading audit history/);
 });
