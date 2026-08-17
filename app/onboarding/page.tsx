@@ -6,6 +6,7 @@ import {
   createBudget,
   createSdkKey,
   getOnboarding,
+  getIntegrationDiagnostics,
   getOrganizations,
   sendTestEvent,
   updateOnboarding,
@@ -13,9 +14,9 @@ import {
 
 const providers: Record<string, string> = {
   openai: "gpt-4o-mini",
-  anthropic: "claude-3-5-sonnet",
-  gemini: "gemini-1.5-flash",
-  groq: "llama-3.1-70b-versatile",
+  anthropic: "claude-sonnet-5",
+  gemini: "gemini-3.5-flash",
+  groq: "llama-3.3-70b-versatile",
   openrouter: "openai/gpt-4o-mini",
   azure_openai: "gpt-4o-mini",
   aws_bedrock: "anthropic.claude-3-5-sonnet",
@@ -30,6 +31,7 @@ export default function Onboarding() {
   const [keyId, setKeyId] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const [diagnostics, setDiagnostics] = useState<Array<{ code: string; label: string; complete: boolean; action: string }>>([]);
   void keyId;
   useEffect(() => {
     getOrganizations().then(async (r) => {
@@ -348,6 +350,14 @@ export default function Onboarding() {
               <p className="mt-2 text-slate-600">
                 Your workspace can now receive usage and evaluate budgets.
               </p>
+              <button
+                type="button"
+                onClick={async () => { const response = await getIntegrationDiagnostics(org); setDiagnostics(response.data.checks); }}
+                className="mt-5 rounded-lg border px-4 py-2 text-sm"
+              >
+                Run readiness check
+              </button>
+              {diagnostics.length > 0 && <div className="mt-4 space-y-2">{diagnostics.map((check) => <div key={check.code} className={`flex items-center gap-2 rounded-lg p-3 text-sm ${check.complete ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-900"}`}><Check size={16} />{check.label}: {check.complete ? "ready" : "action needed"}</div>)}</div>}
             </>
           )}
           {message && step !== 9 && (

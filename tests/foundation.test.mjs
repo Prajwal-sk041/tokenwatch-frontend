@@ -181,7 +181,7 @@ test("security trust page explains telemetry-only mode and accountable sessions"
   assert.match(security, /Telemetry-only/);
   assert.match(security, /one-way hashed/);
   assert.match(security, /does not claim certifications/);
-  assert.match(settings, /new sign-in replaces the previous device session/);
+  assert.match(settings, /new sign-in replaces the previous device\s+session/);
   assert.match(settings, /revokeSession/);
 });
 test("landing page answers why provider consoles are not enough", () => {
@@ -191,4 +191,14 @@ test("landing page answers why provider consoles are not enough", () => {
   assert.match(s, /One view across every provider/);
   assert.match(s, /Budget decision before the next request/);
   assert.match(s, /Provider consoles remain the source for their invoices/);
+});
+test("launch hardening controls are visible to users", () => {
+  const settings = read("app/dashboard/settings/page.tsx");
+  const alerts = read("app/dashboard/alerts/page.tsx");
+  const budgets = read("app/dashboard/budgets/page.tsx");
+  const onboarding = read("app/onboarding/page.tsx");
+  assert.match(settings, /Download my data/);
+  assert.match(alerts, /Send test/);
+  assert.match(budgets, /Policy decision history/);
+  assert.match(onboarding, /Run readiness check/);
 });

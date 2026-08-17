@@ -6,6 +6,7 @@ import {
   deleteBudget,
   getBudgets,
   getUsageAggregate,
+  getPolicyHistory,
   updateBudget,
 } from "@/lib/api";
 import { useWorkspace } from "@/components/app-shell";
@@ -22,6 +23,7 @@ type Budget = {
   action: string;
   is_active: boolean;
 };
+type PolicyDecision = { id: string; provider: string; model: string; decision: string; reason: string; estimated_cost: number; remaining_budget?: number; created_at: string };
 
 export default function Page() {
   const { organization, role } = useWorkspace();
@@ -29,6 +31,7 @@ export default function Page() {
   const [spend, setSpend] = useState({ daily: 0, monthly: 0 });
   const [error, setError] = useState("");
   const [scope, setScope] = useState("organization");
+  const [decisions, setDecisions] = useState<PolicyDecision[]>([]);
   async function load() {
     if (!organization) return;
     try {
@@ -64,6 +67,7 @@ export default function Page() {
       })
       .catch(() => setError("Unable to load budget status right now."));
   }, [organization]);
+  useEffect(() => { getPolicyHistory().then((response) => setDecisions(response.data)).catch(() => setDecisions([])); }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -332,6 +336,13 @@ export default function Page() {
           })
         )}
       </div>
+      <Card>
+        <h2 className="font-semibold">Policy decision history</h2>
+        <p className="mt-1 text-sm text-slate-500">Evidence from SDK policy checks. A hard stop only protects traffic that calls the policy endpoint before the provider request.</p>
+        <div className="mt-4 space-y-3">
+          {decisions.length === 0 ? <p className="text-sm text-slate-500">No policy checks received yet.</p> : decisions.map((decision) => <div key={decision.id} className="flex flex-wrap items-start justify-between gap-3 border-b pb-3 text-sm"><div><p className="font-medium capitalize">{decision.decision} · {decision.provider} / {decision.model}</p><p className="text-slate-500">{decision.reason}</p></div><div className="text-right text-xs text-slate-500"><p>Estimate {money(Number(decision.estimated_cost))}</p><p>{new Date(decision.created_at).toLocaleString()}</p></div></div>)}
+        </div>
+      </Card>
     </div>
   );
 }
