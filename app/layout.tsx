@@ -3,12 +3,29 @@ import "./globals.css";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tokenwatch-frontend.vercel.app"),
-  title: { default: "TokenWatch — AI cost control", template: "%s | TokenWatch" },
-  description: "Track every AI request, enforce budgets before overspending, and control LLM costs from one dashboard.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://tokenwatch-frontend.vercel.app",
+  ),
+  title: {
+    default: "TokenWatch — AI cost control",
+    template: "%s | TokenWatch",
+  },
+  description:
+    "Track every AI request, enforce budgets before overspending, and control LLM costs from one dashboard.",
   alternates: { canonical: "/" },
-  openGraph: { title: "TokenWatch — AI cost control and budget protection", description: "Track every AI request and enforce budgets before overspending.", type: "website", url: "/" },
-  twitter: { card: "summary_large_image", title: "TokenWatch — AI cost control", description: "Budget protection for teams using LLM APIs." },
+  openGraph: {
+    title: "TokenWatch — AI cost control and budget protection",
+    description:
+      "Track every AI request and enforce budgets before overspending.",
+    type: "website",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "TokenWatch — AI cost control",
+    description: "Budget protection for teams using LLM APIs.",
+  },
 };
 
 export default function RootLayout({
@@ -17,9 +34,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify({"@context":"https://schema.org","@type":"SoftwareApplication",name:"TokenWatch",applicationCategory:"BusinessApplication",operatingSystem:"Web",offers:{"@type":"AggregateOffer",lowPrice:"0",priceCurrency:"USD"}}).replace(/</g,"\\u003c")}} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "TokenWatch",
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Web",
+              offers: {
+                "@type": "AggregateOffer",
+                lowPrice: "0",
+                priceCurrency: "USD",
+              },
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
         {children}
         <Toaster richColors position="top-right" />
       </body>

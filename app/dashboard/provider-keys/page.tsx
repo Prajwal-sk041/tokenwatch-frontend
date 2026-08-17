@@ -1,3 +1,139 @@
-"use client";import{FormEvent,useCallback,useEffect,useState}from"react";import{addKey,deleteKey,getKeys}from"@/lib/api";import{useWorkspace}from"@/components/app-shell";import{Card,PageHeader}from"@/components/page-header";
-type K={id:string;name:string;provider:string;masked_key:string;created_at:string};const providers=["openai","anthropic","gemini","groq","openrouter","azure_openai","aws_bedrock"];
-export default function Page(){const{role}=useWorkspace();const[rows,setRows]=useState<K[]>([]);const load=useCallback(()=>getKeys().then(r=>setRows(r.data)),[]);useEffect(()=>{void load()},[load]);const submit=async(e:FormEvent<HTMLFormElement>)=>{e.preventDefault();const f=new FormData(e.currentTarget);await addKey({name:String(f.get("name")),provider:String(f.get("provider")),key_value:String(f.get("key"))});e.currentTarget.reset();await load()};return <div className="space-y-6"><PageHeader title="Provider keys" description="Optional encrypted LLM provider credentials. They are not required for TokenWatch usage ingestion and are never mixed with SDK keys."/>{role!=="viewer"&&<Card><form onSubmit={submit} className="grid gap-3 md:grid-cols-4"><input required name="name" aria-label="Friendly key name" placeholder="Production OpenAI" className="rounded border p-2"/><select name="provider" aria-label="Provider" className="rounded border p-2">{providers.map(p=><option key={p}>{p}</option>)}</select><input required minLength={8} name="key" type="password" autoComplete="off" aria-label="Provider secret" placeholder="Provider secret" className="rounded border p-2"/><button className="rounded bg-slate-900 p-2 text-white">Store encrypted key</button></form></Card>}<Card><div className="space-y-3">{rows.length===0?<p className="p-8 text-center text-slate-500">No provider credentials stored. This does not prevent usage ingestion.</p>:rows.map(k=><div key={k.id} className="flex justify-between rounded-lg border p-4"><div><p className="font-medium">{k.name}</p><p className="text-sm text-slate-500">{k.provider} · {k.masked_key} · Updated {new Date(k.created_at).toLocaleDateString()}</p></div>{role!=="viewer"&&<button className="text-sm text-rose-700" onClick={async()=>{if(confirm("Delete this provider key?")){await deleteKey(k.id);await load()}}}>Delete</button>}</div>)}</div></Card></div>}
+"use client";
+import { FormEvent, useCallback, useEffect, useState } from "react";
+import { addKey, deleteKey, getKeys } from "@/lib/api";
+import { useWorkspace } from "@/components/app-shell";
+import { Card, PageHeader } from "@/components/page-header";
+type K = {
+  id: string;
+  name: string;
+  provider: string;
+  masked_key: string;
+  created_at: string;
+};
+const providers = [
+  "openai",
+  "anthropic",
+  "gemini",
+  "groq",
+  "openrouter",
+  "azure_openai",
+  "aws_bedrock",
+];
+export default function Page() {
+  const { role } = useWorkspace();
+  const [rows, setRows] = useState<K[]>([]);
+  const [message, setMessage] = useState("");
+  const load = useCallback(() => getKeys().then((r) => setRows(r.data)), []);
+  useEffect(() => {
+    void load();
+  }, [load]);
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    await addKey({
+      name: String(f.get("name")),
+      provider: String(f.get("provider")),
+      key_value: String(f.get("key")),
+    });
+    setMessage(
+      `Credential stored as ${String(f.get("provider")).replaceAll("_", " ")}.`,
+    );
+    e.currentTarget.reset();
+    await load();
+  };
+  return (
+    <div className="space-y-6">
+      <PageHeader
+        title="Provider keys"
+        description="Optional encrypted LLM provider credentials. They are not required for TokenWatch usage ingestion and are never mixed with SDK keys."
+      />
+      {message && (
+        <p
+          role="status"
+          className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700"
+        >
+          {message}
+        </p>
+      )}
+      {role !== "viewer" && (
+        <Card>
+          <form onSubmit={submit} className="grid gap-3 md:grid-cols-4">
+            <input
+              required
+              name="name"
+              aria-label="Friendly key name"
+              placeholder="Production OpenAI"
+              className="rounded border p-2"
+            />
+            <select
+              required
+              name="provider"
+              aria-label="Provider"
+              className="rounded border p-2"
+            >
+              <option value="" disabled>
+                Select provider
+              </option>
+              {providers.map((p) => (
+                <option key={p} value={p}>
+                  {p.replaceAll("_", " ")}
+                </option>
+              ))}
+            </select>
+            <input
+              required
+              minLength={8}
+              name="key"
+              type="password"
+              autoComplete="off"
+              aria-label="Provider secret"
+              placeholder="Provider secret"
+              className="rounded border p-2"
+            />
+            <button className="rounded bg-slate-900 p-2 text-white">
+              Store encrypted key
+            </button>
+          </form>
+        </Card>
+      )}
+      <Card>
+        <div className="space-y-3">
+          {rows.length === 0 ? (
+            <p className="p-8 text-center text-slate-500">
+              No provider credentials stored. This does not prevent usage
+              ingestion.
+            </p>
+          ) : (
+            rows.map((k) => (
+              <div
+                key={k.id}
+                className="flex justify-between rounded-lg border p-4"
+              >
+                <div>
+                  <p className="font-medium">{k.name}</p>
+                  <p className="text-sm text-slate-500">
+                    {k.provider} · {k.masked_key} · Updated{" "}
+                    {new Date(k.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+                {role !== "viewer" && (
+                  <button
+                    className="text-sm text-rose-700"
+                    onClick={async () => {
+                      if (confirm("Delete this provider key?")) {
+                        await deleteKey(k.id);
+                        await load();
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      </Card>
+    </div>
+  );
+}
