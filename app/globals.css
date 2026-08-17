@@ -122,9 +122,96 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: Inter, Aptos, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family:
+      Manrope, Inter, Aptos, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.035em;
+  }
+  button,
+  a {
+    transition-property:
+      color, background-color, border-color, opacity, transform, box-shadow;
+    transition-duration: 180ms;
+  }
+}
+
+@keyframes float-card {
+  0%,
+  100% {
+    transform: translateY(0) rotateX(0);
+  }
+  50% {
+    transform: translateY(-10px) rotateX(1deg);
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(28px, -24px, 0) scale(1.08);
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+}
+.hero-orb {
+  filter: blur(70px);
+  animation: drift 10s ease-in-out infinite;
+}
+.float-card {
+  animation: float-card 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+.reveal {
+  animation: rise 0.7s ease-out both;
+}
+.reveal-delay {
+  animation: rise 0.7s 0.14s ease-out both;
+}
+.glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.035)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 25px 70px rgba(3, 7, 18, 0.35);
+  backdrop-filter: blur(18px);
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
