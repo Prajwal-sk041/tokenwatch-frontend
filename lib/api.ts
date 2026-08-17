@@ -110,6 +110,7 @@ export const revokeSdkKey = (org: string, id: string) =>
   api.delete(`/sdk-keys/${org}/${id}`);
 export const getUsageAggregate = (params?: Record<string, string>) =>
   api.get("/usage/aggregate", { params });
+export const getUsageInsights = () => api.get("/usage/insights");
 export const getUsageEvents = (params?: Record<string, string | number>) =>
   api.get("/usage/events", { params });
 export const getBudgets = (org: string) => api.get(`/budgets/${org}`);
@@ -169,4 +170,7 @@ export const createSupportTicket = (data: {
 export const resumeSubscription = (org: string) =>
   api.post(`/billing/${org}/resume`);
 export const getOperationalMetrics = () => api.get("/internal/metrics");
+export const getSessions = () => api.get("/auth/sessions");
+export const revokeSession = (sessionId: string) =>
+  api.delete(`/auth/sessions/${sessionId}`);
 export default api;

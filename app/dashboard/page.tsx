@@ -3,14 +3,17 @@ import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
   Activity,
+  BadgeDollarSign,
   ArrowUpRight,
   Coins,
   Database,
+  ShieldCheck,
   Sparkles,
+  TrendingUp,
 } from "lucide-react";
 import { ApiError } from "@/components/api-error";
 import { LoadingState } from "@/components/loading-state";
-import { getUsageAggregate } from "@/lib/api";
+import { getUsageAggregate, getUsageInsights } from "@/lib/api";
 
 type Aggregate = {
   totals: { requests: number; tokens: number; cost: number };
@@ -22,13 +25,40 @@ type Aggregate = {
   current_month_projection: number;
   timezone: string;
 };
+type Insights = {
+  month: { actual_cost: number; projected_cost: number | null; days_elapsed: number };
+  risk: {
+    level: "normal" | "watch" | "high";
+    today_cost: number;
+    daily_baseline: number;
+    anomaly_ratio: number | null;
+    top_provider: string | null;
+    top_provider_share: number;
+  };
+  value: {
+    blocked_requests: number;
+    estimated_spend_prevented: number;
+    estimated_optimization_opportunity: number;
+  };
+  recommendations: Array<{
+    provider: string;
+    model: string;
+    alternative: string;
+    estimated_monthly_opportunity: number;
+    message: string;
+  }>;
+  methodology: string;
+  features: { spend_forecast: boolean; savings_ledger: boolean; optimization_recommendations: boolean };
+};
 export default function Dashboard() {
   const [data, setData] = useState<Aggregate | null>(null);
+  const [insights, setInsights] = useState<Insights | null>(null);
   const [error, setError] = useState(false);
   const load = useCallback(() => {
-    getUsageAggregate()
-      .then((r) => {
-        setData(r.data);
+    Promise.all([getUsageAggregate(), getUsageInsights()])
+      .then(([aggregate, intelligence]) => {
+        setData(aggregate.data);
+        setInsights(intelligence.data);
         setError(false);
       })
       .catch(() => setError(true));
@@ -37,7 +67,7 @@ export default function Dashboard() {
     void load();
   }, [load]);
   if (error) return <ApiError onRetry={load} />;
-  if (!data) return <LoadingState />;
+  if (!data || !insights) return <LoadingState />;
   const money = (value: number) =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -110,6 +140,48 @@ export default function Dashboard() {
           </section>
         ))}
       </div>
+      {data.totals.requests > 0 && (
+        <section className="overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 p-6 text-white shadow-2xl">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium text-cyan-300">Spend Autopilot</p>
+              <h2 className="mt-1 text-2xl font-semibold">Financial value, not just telemetry</h2>
+              <p className="mt-2 max-w-2xl text-sm text-slate-300">Forecast risk, money protected by hard stops, and explainable optimization opportunities from your own usage.</p>
+            </div>
+            <span className={`rounded-full px-3 py-1 text-xs font-semibold ${insights.risk.level === "high" ? "bg-rose-400/20 text-rose-200" : insights.risk.level === "watch" ? "bg-amber-400/20 text-amber-200" : "bg-emerald-400/20 text-emerald-200"}`}>
+              {insights.risk.level === "normal" ? "Spend pattern normal" : `${insights.risk.level} spend risk`}
+            </span>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {[
+              { label: "Projected this month", value: insights.features.spend_forecast && insights.month.projected_cost !== null ? money(insights.month.projected_cost) : "Unlock in Starter", Icon: TrendingUp },
+              { label: "Estimated spend prevented", value: insights.features.savings_ledger ? money(insights.value.estimated_spend_prevented) : "Unlock in Starter", Icon: ShieldCheck },
+              { label: "Requests blocked", value: insights.features.savings_ledger ? insights.value.blocked_requests.toLocaleString() : "Unlock in Starter", Icon: Activity },
+              { label: "Optimization opportunity", value: insights.features.optimization_recommendations ? money(insights.value.estimated_optimization_opportunity) : "Unlock in Pro", Icon: BadgeDollarSign },
+            ].map(({ label, value, Icon }) => (
+              <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+                <Icon className="text-cyan-300" size={20} />
+                <p className="mt-3 text-xs text-slate-400">{label}</p>
+                <p className="mt-1 text-xl font-semibold">{value}</p>
+              </div>
+            ))}
+          </div>
+          {insights.recommendations.length > 0 && (
+            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+              <h3 className="font-semibold">Cost review opportunities</h3>
+              <div className="mt-3 space-y-3">
+                {insights.recommendations.map((item) => (
+                  <div key={`${item.provider}:${item.model}`} className="flex flex-wrap justify-between gap-3 border-b border-white/10 pb-3 text-sm last:border-0 last:pb-0">
+                    <span>{item.message}</span>
+                    <span className="font-semibold text-emerald-300">Up to {money(item.estimated_monthly_opportunity)}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-4 text-xs text-slate-400">{insights.methodology}</p>
+            </div>
+          )}
+        </section>
+      )}
       {data.totals.requests === 0 ? (
         <section className="relative overflow-hidden rounded-3xl border border-cyan-100 bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 p-10 text-center text-white shadow-2xl">
           <div className="hero-grid pointer-events-none absolute inset-0" />
