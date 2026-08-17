@@ -1,1 +1,65 @@
-"use client";import{useEffect,useState}from"react";import{getAuditLogs}from"@/lib/api";import{useWorkspace}from"@/components/app-shell";import{Card,PageHeader}from"@/components/page-header";type L={id:string;action:string;target_type?:string;created_at:string};export default function Page(){const{organization}=useWorkspace();const[rows,setRows]=useState<L[]>([]);const[denied,setDenied]=useState(false);useEffect(()=>{if(organization)getAuditLogs(organization.id).then(r=>setRows(r.data)).catch(()=>setDenied(true))},[organization]);return <div className="space-y-6"><PageHeader title="Audit logs" description="Security-relevant organization actions, newest first."/><Card>{denied?<p className="text-slate-500">Audit logs are available to organization owners and administrators.</p>:rows.length===0?<p className="text-slate-500">No audit events recorded.</p>:<div className="space-y-2">{rows.map(x=><div key={x.id} className="grid gap-1 border-b py-3 text-sm sm:grid-cols-3"><span className="font-medium">{x.action}</span><span className="text-slate-500">{x.target_type||"organization"}</span><span className="text-slate-500 sm:text-right">{new Date(x.created_at).toLocaleString()}</span></div>)}</div>}</Card></div>}
+"use client";
+import { useEffect, useState } from "react";
+import { getAuditLogs } from "@/lib/api";
+import { useWorkspace } from "@/components/app-shell";
+import { Card, PageHeader } from "@/components/page-header";
+type L = {
+  id: string;
+  action: string;
+  target_type?: string;
+  created_at: string;
+};
+export default function Page() {
+  const { organization } = useWorkspace();
+  const [rows, setRows] = useState<L[]>([]);
+  const [denied, setDenied] = useState(false);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (organization)
+      getAuditLogs(organization.id)
+        .then((r) => {
+          setRows(r.data);
+          setLoading(false);
+        })
+        .catch(() => {
+          setDenied(true);
+          setLoading(false);
+        });
+  }, [organization]);
+  return (
+    <div className="space-y-6">
+      <PageHeader
+        title="Audit logs"
+        description="Security-relevant organization actions, newest first."
+      />
+      <Card>
+        {loading ? (
+          <p className="text-slate-500">Loading audit history…</p>
+        ) : denied ? (
+          <p className="text-slate-500">
+            Audit logs are available to organization owners and administrators.
+          </p>
+        ) : rows.length === 0 ? (
+          <p className="text-slate-500">No audit events recorded.</p>
+        ) : (
+          <div className="space-y-2">
+            {rows.map((x) => (
+              <div
+                key={x.id}
+                className="grid gap-1 border-b py-3 text-sm sm:grid-cols-3"
+              >
+                <span className="font-medium">{x.action}</span>
+                <span className="text-slate-500">
+                  {x.target_type || "organization"}
+                </span>
+                <span className="text-slate-500 sm:text-right">
+                  {new Date(x.created_at).toLocaleString()}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
+    </div>
+  );
+}

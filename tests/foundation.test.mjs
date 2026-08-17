@@ -202,3 +202,15 @@ test("launch hardening controls are visible to users", () => {
   assert.match(budgets, /Policy decision history/);
   assert.match(onboarding, /Run readiness check/);
 });
+test("acceptance cleanup prevents ambiguous provider and member identity", () => {
+  const providerKeys = read("app/dashboard/provider-keys/page.tsx");
+  const team = read("app/dashboard/team/page.tsx");
+  const layout = read("app/layout.tsx");
+  const audit = read("app/dashboard/audit/page.tsx");
+  assert.match(providerKeys, /Select provider/);
+  assert.match(providerKeys, /Credential stored as/);
+  assert.match(team, /m\.display_name \|\| m\.email/);
+  assert.doesNotMatch(team, /m\.invited_email \|\| m\.user_id/);
+  assert.match(layout, /suppressHydrationWarning/);
+  assert.match(audit, /Loading audit history/);
+});
