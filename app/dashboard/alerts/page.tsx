@@ -6,6 +6,7 @@ import API, {
   getAlerts,
   getKeys,
   getUsageAggregate,
+  testAlert,
 } from "@/lib/api";
 import { useWorkspace } from "@/components/app-shell";
 import { Card, PageHeader } from "@/components/page-header";
@@ -25,6 +26,7 @@ export default function Page() {
   const [history, setHistory] = useState<H[]>([]);
   const [connectedProviders, setConnectedProviders] = useState<string[]>([]);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const providers = [
     "openai",
     "anthropic",
@@ -91,6 +93,7 @@ export default function Page() {
           {error}
         </p>
       )}
+      {message && <p role="status" className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">{message}</p>}
       {role !== "viewer" && (
         <Card>
           <form onSubmit={submit} className="grid gap-3 md:grid-cols-3">
@@ -177,6 +180,15 @@ export default function Page() {
                   </p>
                   {role !== "viewer" && (
                     <div className="mt-2 flex gap-3">
+                      <button
+                        className="text-sm text-cyan-700"
+                        onClick={async () => {
+                          try { await testAlert(a.id); setMessage("Test alert delivered. Check the destination and delivery history."); setError(""); await load(); }
+                          catch (caught) { setError(caught instanceof Error ? caught.message : "Test delivery failed."); }
+                        }}
+                      >
+                        Send test
+                      </button>
                       <button
                         className="text-sm"
                         onClick={async () => {

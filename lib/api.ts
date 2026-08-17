@@ -95,6 +95,8 @@ export const resendVerification = (email: string) =>
   api.post("/auth/verify-email/resend", { email });
 export const getOrganizations = () => api.get("/organizations");
 export const getOnboarding = (org: string) => api.get(`/onboarding/${org}`);
+export const getIntegrationDiagnostics = (org: string) =>
+  api.get(`/onboarding/${org}/diagnostics`);
 export const updateOnboarding = (org: string, data: Record<string, unknown>) =>
   api.put(`/onboarding/${org}`, data);
 export const sendTestEvent = (
@@ -140,6 +142,9 @@ export const getSubscription = (org: string) =>
   api.get(`/subscriptions/${org}`);
 export const getAuditLogs = (org: string) => api.get(`/audit-logs/${org}`);
 export const getAlertHistory = () => api.get("/alerts/history");
+export const testAlert = (id: string) => api.post(`/alerts/${id}/test`);
+export const getPolicyHistory = () => api.get("/policy/history");
+export const getPricingCatalog = () => api.get("/usage/pricing-catalog");
 export const getBillingPlans = () => api.get("/billing/plans");
 export const getBillingSummary = (org: string) =>
   api.get(`/billing/${org}/summary`);
@@ -173,4 +178,5 @@ export const getOperationalMetrics = () => api.get("/internal/metrics");
 export const getSessions = () => api.get("/auth/sessions");
 export const revokeSession = (sessionId: string) =>
   api.delete(`/auth/sessions/${sessionId}`);
+export const exportAccount = () => api.get("/auth/export");
 export default api;
